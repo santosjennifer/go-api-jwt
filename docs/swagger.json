@@ -1,0 +1,466 @@
+{
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "API for crud operations on users",
+        "title": "CRUD de Usuário em Go",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/createUser": {
+            "post": {
+                "description": "Create a new user with the provided user information",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user",
+                "parameters": [
+                    {
+                        "description": "User information for registration",
+                        "name": "userRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/response.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/deleteUser/{userId}": {
+            "delete": {
+                "description": "Deletes a user based on the ID provided as a parameter.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of the user to be deleted",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/getUserByEmail/{userEmail}": {
+            "get": {
+                "description": "Retrieves user details based on the email provided as a parameter.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Find User by Email",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Email of the user to be retrieved",
+                        "name": "userEmail",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User information retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Invalid user ID",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/getUserById/{userId}": {
+            "get": {
+                "description": "Retrieves user details based on the user ID provided as a parameter.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Find User by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of the user to be retrieved",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User information retrieved successfully",
+                        "schema": {
+                            "$ref": "#/definitions/response.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Invalid user ID",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    },
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "description": "Allows a user to log in and receive an authentication token.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "User Login",
+                "parameters": [
+                    {
+                        "description": "User login credentials",
+                        "name": "userLogin",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UserLogin"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login successful, authentication token provided",
+                        "schema": {
+                            "$ref": "#/definitions/response.UserResponse"
+                        },
+                        "headers": {
+                            "Authorization": {
+                                "type": "string",
+                                "description": "Authentication token"
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Error: Invalid login credentials",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateUser/{userId}": {
+            "put": {
+                "description": "Updates user details based on the ID provided as a parameter.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "ID of the user to be updated",
+                        "name": "userId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "User information for update",
+                        "name": "userRequest",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.UserUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "default": "Bearer \u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/rest_error.RestErr"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "request.UserLogin": {
+            "description": "Structure containing the necessary fields for user login.",
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "description": "User's email (required and must be a valid email address).",
+                    "type": "string",
+                    "example": "user@mail.com"
+                },
+                "password": {
+                    "description": "User's password (required, minimum of 6 characters, and must contain at least one of the characters: !@#$%*).",
+                    "type": "string",
+                    "minLength": 6,
+                    "example": "password#@#@!2121"
+                }
+            }
+        },
+        "request.UserRequest": {
+            "description": "Structure containing the required fields for creating a new user.",
+            "type": "object",
+            "required": [
+                "age",
+                "email",
+                "name",
+                "password"
+            ],
+            "properties": {
+                "age": {
+                    "description": "User's age (required, must be between 1 and 140).\n@json\n@jsonTag age\n@jsonExample 30",
+                    "type": "integer",
+                    "maximum": 140,
+                    "minimum": 1,
+                    "example": 30
+                },
+                "email": {
+                    "description": "User's email (required and must be a valid email address).\nExample: user@mail.com\n@json\n@jsonTag email\n@jsonExample user@mail.com\n@binding required,email",
+                    "type": "string",
+                    "example": "user@mail.com"
+                },
+                "name": {
+                    "description": "User's name (required, minimum of 4 characters, maximum of 100 characters).\nExample: John Santos\n@json\n@jsonTag name\n@jsonExample John Santos\n@binding required,min=4,max=100",
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 4,
+                    "example": "John Santos"
+                },
+                "password": {
+                    "description": "User's password (required, minimum of 6 characters, and must contain at least one of the characters: !@#$%*).\n@json\n@jsonTag password\n@jsonExample P@ssw0rd!\n@binding required,min=6,containsany=!@#$%*",
+                    "type": "string",
+                    "minLength": 6,
+                    "example": "password#@#@!2121"
+                }
+            }
+        },
+        "request.UserUpdateRequest": {
+            "type": "object",
+            "required": [
+                "age",
+                "email",
+                "name"
+            ],
+            "properties": {
+                "age": {
+                    "description": "User's age (required, must be between 1 and 140).\n@json\n@jsonTag age\n@jsonExample 30\n@binding required,min=1,max=140",
+                    "type": "integer",
+                    "maximum": 140,
+                    "minimum": 1,
+                    "example": 30
+                },
+                "email": {
+                    "description": "User's email (required and must be a valid email address).\nExample: user@mail.com\n@json\n@jsonTag email\n@jsonExample user@mail.com\n@binding required,email",
+                    "type": "string",
+                    "example": "user@mail.com"
+                },
+                "name": {
+                    "description": "User's name (required, minimum of 4 characters, maximum of 100 characters).\nExample: John Santos\n@json\n@jsonTag name\n@jsonExample John Santos\n@binding required,min=4,max=100",
+                    "type": "string",
+                    "maxLength": 100,
+                    "minLength": 4,
+                    "example": "John Santos"
+                }
+            }
+        },
+        "response.UserResponse": {
+            "type": "object",
+            "properties": {
+                "age": {
+                    "type": "integer",
+                    "example": 30
+                },
+                "email": {
+                    "type": "string",
+                    "example": "user@mail.com"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "82bdd399-321b-41d8-8b40-9a0116db9e92"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "John Santos"
+                }
+            }
+        },
+        "rest_error.Causes": {
+            "type": "object",
+            "properties": {
+                "field": {
+                    "type": "string",
+                    "example": "name"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "name is required"
+                }
+            }
+        },
+        "rest_error.RestErr": {
+            "description": "Structure for describing why the error occurred",
+            "type": "object",
+            "properties": {
+                "causes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/rest_error.Causes"
+                    }
+                },
+                "code": {
+                    "type": "integer",
+                    "example": 500
+                },
+                "error": {
+                    "type": "string",
+                    "example": "internal_server_error"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "error trying to process request"
+                }
+            }
+        }
+    }
+}

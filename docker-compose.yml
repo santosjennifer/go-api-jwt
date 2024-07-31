@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  goapijwt:
+    container_name: goapi_jwt
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URL=mongodb://mongodb:27017
+      - MONGODB_USER_DB=users
+      - JWT_SECRET_KEY=k3P@8cL#v2!Q6rDfT*YhZp1Ew9$JmNxB
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    networks:
+      - go_jwt_network
+
+  mongodb:
+    image: mongo
+    container_name: mongodb_jwt
+    ports:
+      - "27017:27017"
+    networks:
+      - go_jwt_network
+
+networks:
+  go_jwt_network:
