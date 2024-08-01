@@ -25,3 +25,5 @@ docker-compose up
 ```
 http://localhost:8080/swagger/index.html
 ```
+
+![image](https://github.com/user-attachments/assets/2c090ace-25f4-4c65-bd41-c55a012dcfb6)
